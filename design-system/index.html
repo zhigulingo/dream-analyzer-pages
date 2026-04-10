@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DreamStalk — Design System</title>
+<style>
+/* ========= THEME VARIABLES ========= */
+:root {
+  --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Dark theme (Telegram default) */
+[data-theme="dark"] {
+  --tg-theme-bg-color: #121a12;
+  --tg-theme-secondary-bg-color: #0c110c;
+  --tg-theme-button-color: #366832;
+  --tg-theme-button-text-color: #ffffff;
+  --tg-theme-text-color: #ffffff;
+  --tg-theme-hint-color: #b1c3d5;
+  --tg-theme-link-color: #366832;
+  --tg-theme-destructive-text-color: #ef5b5b;
+  --ds-page-bg: #0a0a0a;
+  --ds-section-bg: #141414;
+  --ds-border: rgba(255,255,255,0.08);
+  --ds-text: #e0e0e0;
+  --ds-text-muted: #888;
+  --ds-label-bg: rgba(255,255,255,0.06);
+}
+
+/* Light theme */
+[data-theme="light"] {
+  --tg-theme-bg-color: #ffffff;
+  --tg-theme-secondary-bg-color: #f0f0f0;
+  --tg-theme-button-color: #3390ec;
+  --tg-theme-button-text-color: #ffffff;
+  --tg-theme-text-color: #000000;
+  --tg-theme-hint-color: #708499;
+  --tg-theme-link-color: #3390ec;
+  --tg-theme-destructive-text-color: #df3f40;
+  --ds-page-bg: #f5f5f5;
+  --ds-section-bg: #ffffff;
+  --ds-border: rgba(0,0,0,0.08);
+  --ds-text: #222;
+  --ds-text-muted: #666;
+  --ds-label-bg: rgba(0,0,0,0.04);
+}
+
+/* ========= DESIGN SYSTEM LAYOUT ========= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-main);
+  background: var(--ds-page-bg);
+  color: var(--ds-text);
+  line-height: 1.5;
+  transition: background 0.3s, color 0.3s;
+}
+
+.ds-header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--ds-section-bg);
+  border-bottom: 1px solid var(--ds-border);
+  padding: 12px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  backdrop-filter: blur(12px);
+}
+.ds-header h1 { font-size: 18px; font-weight: 700; }
+.ds-header .theme-toggle {
+  display: flex; gap: 4px; background: var(--ds-label-bg); border-radius: 8px; padding: 2px;
+}
+.ds-header .theme-toggle button {
+  padding: 6px 14px; border: none; border-radius: 6px; cursor: pointer;
+  font-size: 13px; font-weight: 600; background: transparent; color: var(--ds-text-muted);
+  transition: all 0.2s;
+}
+.ds-header .theme-toggle button.active {
+  background: var(--tg-theme-button-color); color: #fff;
+}
+
+.ds-nav {
+  position: sticky; top: 52px; z-index: 99;
+  background: var(--ds-section-bg);
+  border-bottom: 1px solid var(--ds-border);
+  padding: 8px 24px;
+  overflow-x: auto; white-space: nowrap;
+  display: flex; gap: 8px;
+}
+.ds-nav a {
+  display: inline-block; padding: 6px 12px; border-radius: 8px;
+  text-decoration: none; font-size: 13px; font-weight: 500;
+  color: var(--ds-text-muted); background: var(--ds-label-bg);
+  transition: all 0.2s;
+}
+.ds-nav a:hover { color: var(--ds-text); background: var(--ds-border); }
+
+.ds-container { max-width: 800px; margin: 0 auto; padding: 24px; }
+
+.ds-section {
+  margin-bottom: 48px;
+  background: var(--ds-section-bg);
+  border-radius: 16px;
+  border: 1px solid var(--ds-border);
+  overflow: hidden;
+}
+.ds-section-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--ds-border);
+}
+.ds-section-header h2 { font-size: 16px; font-weight: 700; }
+.ds-section-header .ds-comp-name {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  font-size: 12px; color: var(--ds-text-muted); margin-top: 2px;
+}
+.ds-section-body { padding: 24px; }
+.ds-section-body .ds-label {
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--ds-text-muted); margin-bottom: 8px; margin-top: 16px;
+}
+.ds-section-body .ds-label:first-child { margin-top: 0; }
+
+.ds-preview {
+  background: var(--tg-theme-bg-color);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  border: 1px solid var(--ds-border);
+}
+
+/* ========= COMPONENT: Colors ========= */
+.ds-colors { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+.ds-color-swatch {
+  border-radius: 10px; overflow: hidden; border: 1px solid var(--ds-border);
+}
+.ds-color-swatch .swatch { height: 48px; }
+.ds-color-swatch .info { padding: 6px 10px; font-size: 11px; }
+.ds-color-swatch .info .name { font-weight: 600; }
+.ds-color-swatch .info .val { color: var(--ds-text-muted); }
+
+/* ========= COMPONENT: Typography ========= */
+.ds-typo-row { margin-bottom: 12px; padding: 8px 0; border-bottom: 1px solid var(--ds-border); }
+.ds-typo-row:last-child { border-bottom: none; }
+.ds-typo-meta { font-size: 11px; color: var(--ds-text-muted); margin-top: 2px; }
+
+/* ========= COMPONENT: Badge ========= */
+.badge { display: inline-flex; background: rgba(255,255,255,0.1); border-radius: 9999px; padding: 4px 12px; font-size: 14px; font-weight: 500; color: white; }
+[data-theme="light"] .badge { background: rgba(0,0,0,0.08); color: #333; }
+
+/* ========= COMPONENT: DreamCard ========= */
+.dream-card {
+  border-radius: 12px; padding: 16px 32px; color: white; cursor: pointer;
+  transition: all 0.3s; overflow: hidden;
+}
+.dream-card .card-row { display: flex; align-items: center; gap: 16px; min-height: 56px; }
+.dream-card .emoji { font-size: 30px; flex-shrink: 0; }
+.dream-card .card-body { flex: 1; min-width: 0; }
+.dream-card .card-title { font-weight: 600; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dream-card .card-date { font-size: 14px; opacity: 0.8; margin-top: 2px; }
+.dream-card .chevron { opacity: 0.4; font-size: 20px; flex-shrink: 0; }
+
+.gradient-blue { background: linear-gradient(135deg, #4A58FF, #5461FF); }
+.gradient-purple { background: linear-gradient(135deg, #BF62ED, #701E99); }
+.gradient-green { background: linear-gradient(135deg, #366832, #4a9e44); }
+
+/* ========= COMPONENT: UserInfoCard ========= */
+.user-info-card {
+  border-radius: 12px;
+  background: linear-gradient(135deg, #5461FF 0%, #4857FF 100%);
+  color: white; overflow: hidden; padding: 16px 32px;
+}
+.user-info-card .user-row { display: flex; align-items: center; min-height: 56px; }
+.user-info-card .avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.user-info-card .name { margin-left: 16px; font-weight: 500; flex: 1; }
+.user-info-card .badges { display: flex; flex-direction: column; gap: 4px; margin-left: auto; }
+
+/* ========= COMPONENT: SymbolCard ========= */
+.symbol-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; padding: 20px; color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.symbol-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.2); }
+.symbol-name { font-size: 20px; font-weight: 600; }
+.frequency-badge { background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 6px 14px; font-size: 16px; font-weight: 600; }
+.symbol-content { display: flex; flex-direction: column; gap: 16px; }
+.symbol-description { opacity: 0.95; line-height: 1.6; font-size: 14px; }
+.symbol-context { background: rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.15); }
+.context-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; margin-bottom: 8px; }
+.symbol-context p { font-size: 14px; line-height: 1.6; opacity: 0.95; }
+
+/* ========= COMPONENT: FactsCarousel ========= */
+.fact-card {
+  border-radius: 12px; overflow: hidden; color: white; padding: 32px;
+  display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;
+}
+.fact-card .fact-badge { display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.fact-badge--science { background: rgba(255,255,255,0.15); }
+.fact-badge--tip { background: rgba(76,175,80,0.3); }
+.fact-badge--myth { background: rgba(255,152,0,0.3); }
+.fact-card .fact-text { font-size: 16px; font-weight: 500; line-height: 1.5; margin-top: 16px; flex: 1; }
+
+/* ========= COMPONENT: ProgressBar ========= */
+.progress-container {}
+.progress-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+.progress-label { font-size: 14px; font-weight: 600; color: var(--tg-theme-text-color); }
+.progress-percentage { font-size: 14px; font-weight: 600; color: var(--tg-theme-hint-color); }
+.progress-track { height: 8px; border-radius: 4px; background: rgba(255,255,255,0.1); overflow: hidden; }
+[data-theme="light"] .progress-track { background: rgba(0,0,0,0.08); }
+.progress-fill { height: 100%; border-radius: 4px; background: var(--tg-theme-button-color); transition: width 0.5s ease; position: relative; overflow: hidden; }
+.progress-fill.animated .progress-shimmer,
+.progress-shimmer { position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: shimmer 1.5s infinite; }
+@keyframes shimmer { to { left: 100%; } }
+
+/* ========= COMPONENT: DemographicsBanner ========= */
+.demographics-banner {
+  border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05); color: white; padding: 16px;
+}
+[data-theme="light"] .demographics-banner { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); color: #333; }
+.demographics-banner .banner-row { display: flex; align-items: flex-start; gap: 12px; }
+.demographics-banner .banner-icon { font-size: 24px; }
+.demographics-banner .banner-title { font-weight: 600; }
+.demographics-banner .banner-desc { font-size: 14px; opacity: 0.9; margin-top: 4px; }
+.demographics-banner .banner-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.demographics-banner .banner-actions button {
+  padding: 8px 16px; border-radius: 12px; border: none; font-size: 14px; cursor: pointer; font-weight: 500;
+}
+.banner-btn-primary { background: rgba(255,255,255,0.2); color: white; }
+.banner-btn-secondary { background: rgba(255,255,255,0.1); color: white; }
+[data-theme="light"] .banner-btn-primary { background: rgba(0,0,0,0.08); color: #333; }
+[data-theme="light"] .banner-btn-secondary { background: rgba(0,0,0,0.04); color: #666; }
+
+/* ========= COMPONENT: LoadingSpinner ========= */
+.loading-spinner { display: inline-block; position: relative; }
+.loading-spinner .spinner-ring { position: absolute; border: 2px solid transparent; border-radius: 50%; }
+.spinner-sm { width: 16px; height: 16px; }
+.spinner-sm .spinner-ring { width: 16px; height: 16px; border-top-color: currentColor; animation: spin 1s ease-in-out infinite; }
+.spinner-md { width: 24px; height: 24px; }
+.spinner-md .spinner-ring { width: 24px; height: 24px; border-top-color: currentColor; animation: spin 1s ease-in-out infinite; }
+.spinner-lg { width: 32px; height: 32px; }
+.spinner-lg .spinner-ring { width: 32px; height: 32px; border-top-color: currentColor; animation: spin 1s ease-in-out infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ========= COMPONENT: SkeletonLoader ========= */
+.skeleton-line { height: 12px; border-radius: 6px; background: rgba(255,255,255,0.08); animation: skeleton-pulse 1.5s ease-in-out infinite; }
+.skeleton-circle { border-radius: 50%; background: rgba(255,255,255,0.08); animation: skeleton-pulse 1.5s ease-in-out infinite; }
+[data-theme="light"] .skeleton-line, [data-theme="light"] .skeleton-circle { background: rgba(0,0,0,0.06); }
+@keyframes skeleton-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ========= COMPONENT: NotificationSystem ========= */
+.notification { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; font-size: 14px; font-weight: 500; }
+.notification-success { background: rgba(40,167,69,0.15); color: #28a745; border: 1px solid rgba(40,167,69,0.2); }
+.notification-error { background: rgba(239,91,91,0.15); color: #ef5b5b; border: 1px solid rgba(239,91,91,0.2); }
+.notification-info { background: rgba(51,144,236,0.15); color: #3390ec; border: 1px solid rgba(51,144,236,0.2); }
+
+/* ========= COMPONENT: SubscriptionModal ========= */
+.subscription-card {
+  background: linear-gradient(135deg, #8000FF, #5500AA);
+  border-radius: 20px; padding: 24px; color: white; text-align: center;
+}
+.subscription-card h2 { font-size: 28px; font-weight: 700; margin-bottom: 20px; }
+.plan-switcher { display: flex; background: rgba(255,255,255,0.1); border-radius: 12px; padding: 3px; margin-bottom: 20px; }
+.plan-switcher button { flex: 1; padding: 10px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; background: transparent; color: rgba(255,255,255,0.6); transition: all 0.2s; }
+.plan-switcher button.active { background: rgba(255,255,255,0.2); color: white; }
+.plan-card { background: rgba(255,255,255,0.08); border-radius: 16px; padding: 20px; text-align: left; border: 1px solid rgba(255,255,255,0.1); }
+.plan-card .plan-name { font-size: 18px; font-weight: 700; }
+.plan-card .plan-price { font-size: 24px; font-weight: 800; margin: 8px 0; }
+.plan-card .plan-features { list-style: none; padding: 0; }
+.plan-card .plan-features li { padding: 4px 0; font-size: 14px; opacity: 0.9; }
+.plan-card .plan-features li::before { content: "✓ "; opacity: 0.5; }
+
+/* ========= COMPONENT: Survey Controls ========= */
+.survey-card { background: linear-gradient(135deg, #6A4DFF 0%, #9A3CFF 100%); border-radius: 20px; padding: 24px; color: white; }
+.survey-title { font-size: 22px; font-weight: 800; margin-bottom: 16px; text-align: center; }
+.survey-buttons { display: flex; flex-direction: column; gap: 12px; }
+.survey-btn { width: 100%; padding: 14px 18px; border-radius: 20px; border: none; background: #fff; color: #111827; font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 10px 24px rgba(0,0,0,0.14); transition: opacity 0.2s; }
+.survey-btn.active { border: 3px solid transparent; background-image: linear-gradient(#fff,#fff), linear-gradient(135deg,#6A4DFF,#9A3CFF); background-origin: border-box; background-clip: padding-box, border-box; }
+.survey-btn.faded { opacity: 0.5; }
+.survey-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+.survey-textarea { width: 100%; border: 1px solid #e5e7eb; border-radius: 16px; padding: 14px; resize: none; font-size: 16px; font-family: var(--font-main); box-sizing: border-box; }
+.survey-slider { width: 100%; accent-color: #6A4DFF; }
+.slider-row { display: flex; align-items: center; gap: 12px; }
+.slider-value { width: 44px; text-align: center; font-weight: 800; font-size: 18px; }
+.slider-labels { display: flex; justify-content: space-between; margin-top: 8px; font-size: 14px; opacity: 0.95; font-weight: 600; }
+
+/* ========= COMPONENT: Survey ProgressBar ========= */
+.survey-progress { display: flex; gap: 4px; }
+.survey-progress .dot { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.2); transition: background 0.3s; }
+.survey-progress .dot.filled { background: rgba(255,255,255,0.8); }
+
+/* ========= COMPONENT: Onboarding Card ========= */
+.onboarding-card {
+  background: linear-gradient(135deg, #6A4DFF 0%, #9A3CFF 100%);
+  border-radius: 16px; padding: 20px 16px 0; color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 300px; text-align: center;
+}
+.onboarding-card .headline { font-size: 16px; line-height: 1.4; font-weight: 500; margin: 12px 0; }
+
+/* ========= STATES ========= */
+.state-disabled { opacity: 0.5; pointer-events: none; }
+.state-active { }
+
+/* ========= UTILITIES ========= */
+.mb-8 { margin-bottom: 8px; }
+.mb-16 { margin-bottom: 16px; }
+.gap-8 { gap: 8px; }
+.flex-row { display: flex; gap: 12px; flex-wrap: wrap; }
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- HEADER -->
+<div class="ds-header">
+  <h1>🌙 DreamStalk Design System</h1>
+  <div class="theme-toggle">
+    <button class="active" onclick="setTheme('dark')">Dark</button>
+    <button onclick="setTheme('light')">Light</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="ds-nav">
+  <a href="#colors">Цвета</a>
+  <a href="#typography">Типография</a>
+  <a href="#badge">Badge</a>
+  <a href="#dream-card">DreamCard</a>
+  <a href="#user-info">UserInfoCard</a>
+  <a href="#symbol-card">SymbolCard</a>
+  <a href="#facts">FactsCarousel</a>
+  <a href="#progress">ProgressBar</a>
+  <a href="#demographics">DemographicsBanner</a>
+  <a href="#loading">Loading</a>
+  <a href="#skeleton">Skeleton</a>
+  <a href="#notifications">Notifications</a>
+  <a href="#subscription">Subscription</a>
+  <a href="#onboarding">Onboarding</a>
+  <a href="#survey-buttons">Survey: Buttons</a>
+  <a href="#survey-text">Survey: Text</a>
+  <a href="#survey-slider">Survey: Slider</a>
+  <a href="#survey-progress">Survey: Progress</a>
+</nav>
+
+<div class="ds-container">
+
+<!-- ==================== COLORS ==================== -->
+<section class="ds-section" id="colors">
+  <div class="ds-section-header">
+    <h2>Цвета</h2>
+    <div class="ds-comp-name">theme.css — CSS Custom Properties</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Основные цвета темы</div>
+    <div class="ds-colors">
+      <div class="ds-color-swatch"><div class="swatch" style="background: var(--tg-theme-bg-color)"></div><div class="info"><div class="name">bg-color</div><div class="val">#121a12 / #fff</div></div></div>
+      <div class="ds-color-swatch"><div class="swatch" style="background: var(--tg-theme-secondary-bg-color)"></div><div class="info"><div class="name">secondary-bg</div><div class="val">#0c110c / #f0f0f0</div></div></div>
+      <div class="ds-color-swatch"><div class="swatch" style="background: var(--tg-theme-button-color)"></div><div class="info"><div class="name">button-color</div><div class="val">#366832 / #3390ec</div></div></div>
+      <div class="ds-color-swatch"><div class="swatch" style="background: var(--tg-theme-text-color)"></div><div class="info"><div class="name">text-color</div><div class="val">#fff / #000</div></div></div>
+      <div class="ds-color-swatch"><div class="swatch" style="background: var(--tg-theme-hint-color)"></div><div class="info"><div class="name">hint-color</div><div class="val">#b1c3d5 / #708499</div></div></div>
+      <div class="ds-color-swatch"><div class="swatch" style="background: var(--tg-theme-destructive-text-color)"></div><div class="info"><div class="name">destructive</div><div class="val">#ef5b5b / #df3f40</div></div></div>
+    </div>
+    <div class="ds-label">Градиенты</div>
+    <div class="ds-colors">
+      <div class="ds-color-swatch"><div class="swatch" style="background: linear-gradient(135deg, #5461FF, #4A58FF)"></div><div class="info"><div class="name">gradient-user</div><div class="val">#5461FF → #4A58FF</div></div></div>
+      <div class="ds-color-swatch"><div class="swatch" style="background: linear-gradient(135deg, #5342E1, #7A164F)"></div><div class="info"><div class="name">gradient-fact-1</div><div class="val">#5342E1 → #7A164F</div></div></div>
+      <div class="ds-color-swatch"><div class="swatch" style="background: linear-gradient(135deg, #BF62ED, #701E99)"></div><div class="info"><div class="name">gradient-fact-2</div><div class="val">#BF62ED → #701E99</div></div></div>
+      <div class="ds-color-swatch"><div class="swatch" style="background: linear-gradient(135deg, #6A4DFF, #9A3CFF)"></div><div class="info"><div class="name">survey/onboarding</div><div class="val">#6A4DFF → #9A3CFF</div></div></div>
+      <div class="ds-color-swatch"><div class="swatch" style="background: linear-gradient(135deg, #8000FF, #5500AA)"></div><div class="info"><div class="name">subscription</div><div class="val">#8000FF → #5500AA</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TYPOGRAPHY ==================== -->
+<section class="ds-section" id="typography">
+  <div class="ds-section-header">
+    <h2>Типография</h2>
+    <div class="ds-comp-name">System font stack</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-preview" style="color: var(--tg-theme-text-color)">
+      <div class="ds-typo-row"><div style="font-size:32px;font-weight:700">Heading 32px Bold</div><div class="ds-typo-meta">font-size: 32px, font-weight: 700</div></div>
+      <div class="ds-typo-row"><div style="font-size:28px;font-weight:700">Heading 28px Bold</div><div class="ds-typo-meta">font-size: 28px, font-weight: 700 — SubscriptionModal title</div></div>
+      <div class="ds-typo-row"><div style="font-size:22px;font-weight:800">Title 22px ExtraBold</div><div class="ds-typo-meta">font-size: 22px, font-weight: 800 — Survey question titles</div></div>
+      <div class="ds-typo-row"><div style="font-size:20px;font-weight:600">Title 20px SemiBold</div><div class="ds-typo-meta">font-size: 20px, font-weight: 600 — SymbolCard name</div></div>
+      <div class="ds-typo-row"><div style="font-size:18px;font-weight:700">Button 18px Bold</div><div class="ds-typo-meta">font-size: 18px, font-weight: 700 — Survey buttons</div></div>
+      <div class="ds-typo-row"><div style="font-size:16px;font-weight:600">Body 16px SemiBold</div><div class="ds-typo-meta">font-size: 16px, font-weight: 600 — DreamCard title</div></div>
+      <div class="ds-typo-row"><div style="font-size:16px;font-weight:500">Body 16px Medium</div><div class="ds-typo-meta">font-size: 16px, font-weight: 500 — Onboarding headline</div></div>
+      <div class="ds-typo-row"><div style="font-size:14px;font-weight:500">Small 14px Medium</div><div class="ds-typo-meta">font-size: 14px, font-weight: 500 — Badge, descriptions</div></div>
+      <div class="ds-typo-row"><div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px">Label 12px UPPERCASE</div><div class="ds-typo-meta">font-size: 12px, font-weight: 600, uppercase — Section labels</div></div>
+      <div class="ds-typo-row"><div style="font-size:11px;color:var(--tg-theme-hint-color)">Hint 11px</div><div class="ds-typo-meta">font-size: 11px — Hint/meta text</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BADGE ==================== -->
+<section class="ds-section" id="badge">
+  <div class="ds-section-header">
+    <h2>Badge</h2>
+    <div class="ds-comp-name">Badge.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Default</div>
+    <div class="ds-preview">
+      <div class="flex-row">
+        <span class="badge">Токенов: 3</span>
+        <span class="badge">Beta</span>
+        <span class="badge">Premium</span>
+      </div>
+    </div>
+    <div class="ds-label">Disabled</div>
+    <div class="ds-preview">
+      <div class="flex-row state-disabled">
+        <span class="badge">Токенов: 0</span>
+        <span class="badge">Free</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DREAM CARD ==================== -->
+<section class="ds-section" id="dream-card">
+  <div class="ds-section-header">
+    <h2>DreamCard — Карточка сна</h2>
+    <div class="ds-comp-name">DreamCard.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Обычный сон (gradient-blue)</div>
+    <div class="ds-preview">
+      <div class="dream-card gradient-blue mb-8">
+        <div class="card-row">
+          <div class="emoji">🌊</div>
+          <div class="card-body">
+            <div class="card-title">Океан и летающие рыбы</div>
+            <div class="card-date">2 часа назад</div>
+          </div>
+          <div class="chevron">›</div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-label">Глубокий анализ (gradient-purple)</div>
+    <div class="ds-preview">
+      <div class="dream-card gradient-purple mb-8">
+        <div class="card-row">
+          <div class="emoji">🔮</div>
+          <div class="card-body">
+            <div class="card-title">Глубокий анализ за неделю</div>
+            <div class="card-date">Вчера</div>
+          </div>
+          <div class="chevron">›</div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-label">Active (expanded)</div>
+    <div class="ds-preview">
+      <div class="dream-card gradient-blue" style="padding-bottom:24px">
+        <div class="card-row"><div class="emoji">🌊</div><div class="card-body"><div class="card-title">Океан и летающие рыбы</div><div class="card-date">2 часа назад</div></div></div>
+        <div style="margin-top:16px">
+          <h2 style="font-size:32px;font-weight:700;line-height:1.1">Океан и летающие рыбы</h2>
+          <div style="font-size:16px;opacity:0.8;margin-top:8px">10 апреля 2026, 12:34</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+            <span class="badge">вода</span><span class="badge">полёт</span><span class="badge">животные</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== USER INFO CARD ==================== -->
+<section class="ds-section" id="user-info">
+  <div class="ds-section-header">
+    <h2>UserInfoCard — Профиль</h2>
+    <div class="ds-comp-name">UserInfoCard.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Свёрнутый</div>
+    <div class="ds-preview">
+      <div class="user-info-card">
+        <div class="user-row">
+          <div class="avatar">👤</div>
+          <div class="name">Глеб</div>
+          <div class="badges">
+            <span class="badge">Токенов: 3</span>
+            <span class="badge">Beta</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-label">Раскрытый</div>
+    <div class="ds-preview">
+      <div class="user-info-card" style="padding-bottom:24px">
+        <div class="user-row">
+          <div class="avatar">👤</div>
+          <div class="name">Глеб</div>
+        </div>
+        <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap">
+          <span class="badge">Токенов: 3</span>
+          <span class="badge">Beta</span>
+        </div>
+        <div style="margin-top:16px; font-size:14px; opacity:0.9">
+          <div>📊 Снов: 12 · Анализов: 8</div>
+          <div style="margin-top:4px">📅 С нами с 1 марта 2026</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SYMBOL CARD ==================== -->
+<section class="ds-section" id="symbol-card">
+  <div class="ds-section-header">
+    <h2>SymbolCard — Символ</h2>
+    <div class="ds-comp-name">SymbolCard.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Default</div>
+    <div class="ds-preview">
+      <div class="symbol-card">
+        <div class="symbol-header">
+          <h3 class="symbol-name">Вода</h3>
+          <span class="frequency-badge">×7</span>
+        </div>
+        <div class="symbol-content">
+          <div class="symbol-description">Символ бессознательного, эмоций и внутренних процессов. Чистая вода — ясность мыслей, мутная — подавленные чувства.</div>
+          <div class="symbol-context">
+            <h4 class="context-label">В ваших снах</h4>
+            <p>Появляется преимущественно в виде океана или реки. Часто сопровождается чувством спокойствия и свободы.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FACTS CAROUSEL ==================== -->
+<section class="ds-section" id="facts">
+  <div class="ds-section-header">
+    <h2>FactsCarousel — Карточки фактов</h2>
+    <div class="ds-comp-name">FactsCarouselV2.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Наука</div>
+    <div class="ds-preview">
+      <div class="fact-card" style="background:linear-gradient(135deg,#5342E1,#7A164F)">
+        <span class="fact-badge fact-badge--science">Наука</span>
+        <div class="fact-text">Средний человек видит 3-5 снов за ночь, но забывает до 95% из них в первые 10 минут после пробуждения.</div>
+      </div>
+    </div>
+    <div class="ds-label">Совет</div>
+    <div class="ds-preview">
+      <div class="fact-card" style="background:linear-gradient(135deg,#BF62ED,#701E99)">
+        <span class="fact-badge fact-badge--tip">Совет</span>
+        <div class="fact-text">Записывайте сны сразу после пробуждения — память о сне быстро исчезает. Держите блокнот у кровати.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROGRESS BAR ==================== -->
+<section class="ds-section" id="progress">
+  <div class="ds-section-header">
+    <h2>ProgressBar — Прогресс</h2>
+    <div class="ds-comp-name">ProgressBar.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">С label + процентом</div>
+    <div class="ds-preview">
+      <div class="progress-container">
+        <div class="progress-header"><div class="progress-label">Анализ сна</div><div class="progress-percentage">65%</div></div>
+        <div class="progress-track"><div class="progress-fill animated" style="width:65%"><div class="progress-shimmer"></div></div></div>
+      </div>
+    </div>
+    <div class="ds-label">Минимальный</div>
+    <div class="ds-preview">
+      <div class="progress-container"><div class="progress-track"><div class="progress-fill" style="width:30%"></div></div></div>
+    </div>
+    <div class="ds-label">Завершённый (100%)</div>
+    <div class="ds-preview">
+      <div class="progress-container">
+        <div class="progress-header"><div class="progress-label">Готово!</div><div class="progress-percentage">100%</div></div>
+        <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DEMOGRAPHICS BANNER ==================== -->
+<section class="ds-section" id="demographics">
+  <div class="ds-section-header">
+    <h2>DemographicsBanner</h2>
+    <div class="ds-comp-name">DemographicsBanner.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Default</div>
+    <div class="ds-preview">
+      <div class="demographics-banner">
+        <div class="banner-row">
+          <div class="banner-icon">🧭</div>
+          <div style="flex:1">
+            <div class="banner-title">Повысим точность анализа</div>
+            <div class="banner-desc">Укажите возраст и пол — будущие анализы будут сравниваться с демографическими нормами.</div>
+            <div class="banner-actions">
+              <button class="banner-btn-primary">Указать данные</button>
+              <button class="banner-btn-secondary">Скрыть</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== LOADING ==================== -->
+<section class="ds-section" id="loading">
+  <div class="ds-section-header">
+    <h2>LoadingSpinner</h2>
+    <div class="ds-comp-name">LoadingSpinner.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Размеры: sm / md / lg</div>
+    <div class="ds-preview">
+      <div style="display:flex;align-items:center;gap:24px;color:var(--tg-theme-text-color)">
+        <div><div class="loading-spinner spinner-sm"><div class="spinner-ring"></div></div><div class="ds-typo-meta" style="margin-top:4px">sm</div></div>
+        <div><div class="loading-spinner spinner-md"><div class="spinner-ring"></div></div><div class="ds-typo-meta" style="margin-top:4px">md</div></div>
+        <div><div class="loading-spinner spinner-lg"><div class="spinner-ring"></div></div><div class="ds-typo-meta" style="margin-top:4px">lg</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SKELETON ==================== -->
+<section class="ds-section" id="skeleton">
+  <div class="ds-section-header">
+    <h2>SkeletonLoader</h2>
+    <div class="ds-comp-name">SkeletonLoader.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">User Card Skeleton</div>
+    <div class="ds-preview">
+      <div style="display:flex;align-items:center;gap:16px;padding:16px">
+        <div class="skeleton-circle" style="width:40px;height:40px"></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+          <div class="skeleton-line" style="width:75%;height:16px"></div>
+          <div class="skeleton-line" style="width:50%;height:12px"></div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-label">Dream Card Skeleton</div>
+    <div class="ds-preview">
+      <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between"><div class="skeleton-line" style="width:25%;height:16px"></div><div class="skeleton-line" style="width:64px;height:12px"></div></div>
+        <div class="skeleton-line" style="width:100%"></div>
+        <div class="skeleton-line" style="width:83%"></div>
+        <div class="skeleton-line" style="width:80%"></div>
+        <div class="skeleton-line" style="width:33%;height:24px;margin-top:4px"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== NOTIFICATIONS ==================== -->
+<section class="ds-section" id="notifications">
+  <div class="ds-section-header">
+    <h2>Notifications</h2>
+    <div class="ds-comp-name">NotificationSystem.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Success / Error / Info</div>
+    <div class="ds-preview" style="display:flex;flex-direction:column;gap:8px">
+      <div class="notification notification-success">✓ Подписка подтверждена! Теперь отправьте сон.</div>
+      <div class="notification notification-error">✕ Подписка не найдена. Откройте канал.</div>
+      <div class="notification notification-info">ℹ Анализ в процессе, подождите...</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SUBSCRIPTION ==================== -->
+<section class="ds-section" id="subscription">
+  <div class="ds-section-header">
+    <h2>SubscriptionModal — Тарифы</h2>
+    <div class="ds-comp-name">SubscriptionModal.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Модалка подписки</div>
+    <div class="ds-preview" style="padding:0">
+      <div class="subscription-card">
+        <h2>Выбери тариф</h2>
+        <div class="plan-switcher">
+          <button class="active">Basic</button>
+          <button>Premium</button>
+        </div>
+        <div class="plan-card">
+          <div class="plan-name">Basic</div>
+          <div class="plan-price">⭐ 150 Stars / мес</div>
+          <ul class="plan-features">
+            <li>5 анализов в месяц</li>
+            <li>Базовые символы</li>
+            <li>История снов</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ONBOARDING ==================== -->
+<section class="ds-section" id="onboarding">
+  <div class="ds-section-header">
+    <h2>Onboarding — Карточка</h2>
+    <div class="ds-comp-name">Onboarding.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Active slide</div>
+    <div class="ds-preview">
+      <div class="onboarding-card">
+        <div style="font-size:80px;margin-bottom:8px">🧙‍♂️</div>
+        <div class="headline">Сюжеты снов часто отражают эмоции,<br/>а не реальные события.</div>
+      </div>
+    </div>
+    <div class="ds-label">Inactive slide (scale 0.92, opacity 0.7)</div>
+    <div class="ds-preview">
+      <div class="onboarding-card" style="transform:scale(0.92);opacity:0.7">
+        <div style="font-size:80px;margin-bottom:8px">💭</div>
+        <div class="headline">DreamsTalk поможет сохранить<br/>и исследовать сны.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SURVEY: BUTTONS ==================== -->
+<section class="ds-section" id="survey-buttons">
+  <div class="ds-section-header">
+    <h2>Survey: ButtonsQuestion</h2>
+    <div class="ds-comp-name">controls/ButtonsQuestion.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Без выбора</div>
+    <div class="ds-preview" style="padding:0">
+      <div class="survey-card">
+        <div class="survey-title">Как часто вы помните свои сны?</div>
+        <div class="survey-buttons">
+          <button class="survey-btn">Никогда</button>
+          <button class="survey-btn">Иногда</button>
+          <button class="survey-btn">Часто</button>
+          <button class="survey-btn">Почти каждый день</button>
+        </div>
+      </div>
+    </div>
+    <div class="ds-label">С выбором (active + faded)</div>
+    <div class="ds-preview" style="padding:0">
+      <div class="survey-card">
+        <div class="survey-title">Записываете ли вы сны?</div>
+        <div class="survey-buttons">
+          <button class="survey-btn faded">Нет</button>
+          <button class="survey-btn active">Иногда</button>
+          <button class="survey-btn faded">Да, регулярно</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SURVEY: TEXT ==================== -->
+<section class="ds-section" id="survey-text">
+  <div class="ds-section-header">
+    <h2>Survey: TextQuestion</h2>
+    <div class="ds-comp-name">controls/TextQuestion.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Пустой (disabled кнопка)</div>
+    <div class="ds-preview" style="padding:0">
+      <div class="survey-card">
+        <div class="survey-title">Что вы ожидаете от инструмента анализа снов?</div>
+        <textarea class="survey-textarea" rows="4" placeholder="Например: «Хочу лучше понимать символику снов»"></textarea>
+        <div style="display:flex;justify-content:center;margin-top:12px"><button class="survey-btn" disabled style="min-width:160px">Далее</button></div>
+      </div>
+    </div>
+    <div class="ds-label">Заполненный (active кнопка)</div>
+    <div class="ds-preview" style="padding:0">
+      <div class="survey-card">
+        <div class="survey-title">Какие функции вы хотите видеть?</div>
+        <textarea class="survey-textarea" rows="4">Авто-расшифровка символов, дневник сна, рекомендации по улучшению сна</textarea>
+        <div style="display:flex;justify-content:center;margin-top:12px"><button class="survey-btn" style="min-width:160px">Далее</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SURVEY: SLIDER ==================== -->
+<section class="ds-section" id="survey-slider">
+  <div class="ds-section-header">
+    <h2>Survey: SliderQuestion</h2>
+    <div class="ds-comp-name">controls/SliderQuestion.vue</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">Default</div>
+    <div class="ds-preview" style="padding:0">
+      <div class="survey-card">
+        <div class="survey-title">Оцените важность анализа снов</div>
+        <div class="slider-row">
+          <input class="survey-slider" type="range" min="1" max="10" value="7">
+          <div class="slider-value">7</div>
+        </div>
+        <div class="slider-labels"><span>1</span><span>5</span><span>10</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SURVEY: PROGRESS ==================== -->
+<section class="ds-section" id="survey-progress">
+  <div class="ds-section-header">
+    <h2>Survey: ProgressBar</h2>
+    <div class="ds-comp-name">ProgressBar.vue (survey)</div>
+  </div>
+  <div class="ds-section-body">
+    <div class="ds-label">3 из 8 вопросов</div>
+    <div class="ds-preview">
+      <div class="survey-progress">
+        <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      </div>
+    </div>
+    <div class="ds-label">Завершён (8 из 8)</div>
+    <div class="ds-preview">
+      <div class="survey-progress">
+        <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+        <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- .ds-container -->
+
+<script>
+function setTheme(t) {
+  document.body.setAttribute('data-theme', t);
+  document.querySelectorAll('.theme-toggle button').forEach(b => {
+    b.classList.toggle('active', b.textContent.trim().toLowerCase() === t);
+  });
+}
+</script>
+</body>
+</html>
