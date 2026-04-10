@@ -149,7 +149,7 @@ body {
 /* ========= COMPONENT: DreamCard ========= */
 .dream-card {
   border-radius: 12px; padding: 16px 32px; color: white; cursor: pointer;
-  transition: all 0.3s; overflow: hidden;
+  transition: all 0.3s; overflow: hidden; width: 100%;
 }
 .dream-card .card-row { display: flex; align-items: center; gap: 16px; min-height: 56px; }
 .dream-card .emoji { font-size: 30px; flex-shrink: 0; }
@@ -158,9 +158,21 @@ body {
 .dream-card .card-date { font-size: 14px; opacity: 0.8; margin-top: 2px; }
 .dream-card .chevron { opacity: 0.4; font-size: 20px; flex-shrink: 0; }
 
-.gradient-blue { background: linear-gradient(135deg, #4A58FF, #5461FF); }
-.gradient-purple { background: linear-gradient(135deg, #BF62ED, #701E99); }
-.gradient-green { background: linear-gradient(135deg, #366832, #4a9e44); }
+/* Real gradient types from DreamCard.vue gradientClass computed */
+.gradient-default { background: linear-gradient(135deg, #4A58FF 0%, #5664FF 100%); }
+.gradient-deep { background: linear-gradient(135deg, #9C41FF 0%, #B04AFF 80%, #C03AFF 100%); }
+.gradient-emotion { background: linear-gradient(135deg, #FF4A4A 0%, #FF6B6B 80%, #FF8A8A 100%); }
+.gradient-memory { background: linear-gradient(135deg, #FFB84A 0%, #FFC966 80%, #FFDA82 100%); }
+.gradient-anticipation { background: linear-gradient(135deg, #4A9FFF 0%, #6BB3FF 80%, #8AC7FF 100%); }
+
+/* TMA-style preview: matches PersonalAccount px-4 gap-6 layout */
+.ds-tma-preview {
+  background: var(--tg-theme-bg-color);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid var(--ds-border);
+}
+.ds-tma-preview .card-stack { display: flex; flex-direction: column; gap: 16px; }
 
 /* ========= COMPONENT: UserInfoCard ========= */
 .user-info-card {
@@ -375,7 +387,7 @@ body {
     <div class="ds-comp-name">System font stack</div>
   </div>
   <div class="ds-section-body">
-    <div class="ds-preview" style="color: var(--tg-theme-text-color)">
+    <div class="ds-tma-preview" style="color: var(--tg-theme-text-color)">
       <div class="ds-typo-row"><div style="font-size:32px;font-weight:700">Heading 32px Bold</div><div class="ds-typo-meta">font-size: 32px, font-weight: 700</div></div>
       <div class="ds-typo-row"><div style="font-size:28px;font-weight:700">Heading 28px Bold</div><div class="ds-typo-meta">font-size: 28px, font-weight: 700 — SubscriptionModal title</div></div>
       <div class="ds-typo-row"><div style="font-size:22px;font-weight:800">Title 22px ExtraBold</div><div class="ds-typo-meta">font-size: 22px, font-weight: 800 — Survey question titles</div></div>
@@ -398,7 +410,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Default</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="flex-row">
         <span class="badge">Токенов: 3</span>
         <span class="badge">Beta</span>
@@ -406,7 +418,7 @@ body {
       </div>
     </div>
     <div class="ds-label">Disabled</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="flex-row state-disabled">
         <span class="badge">Токенов: 0</span>
         <span class="badge">Free</span>
@@ -419,45 +431,80 @@ body {
 <section class="ds-section" id="dream-card">
   <div class="ds-section-header">
     <h2>DreamCard — Карточка сна</h2>
-    <div class="ds-comp-name">DreamCard.vue</div>
+    <div class="ds-comp-name">DreamCard.vue — 5 цветовых типов по функции сна</div>
   </div>
   <div class="ds-section-body">
-    <div class="ds-label">Обычный сон (gradient-blue)</div>
-    <div class="ds-preview">
-      <div class="dream-card gradient-blue mb-8">
-        <div class="card-row">
-          <div class="emoji">🌊</div>
-          <div class="card-body">
-            <div class="card-title">Океан и летающие рыбы</div>
-            <div class="card-date">2 часа назад</div>
+    <div class="ds-label">Все типы градиентов (как в приложении)</div>
+    <div class="ds-tma-preview">
+      <div class="card-stack">
+        <div class="dream-card gradient-default">
+          <div class="card-row">
+            <div class="emoji">🌊</div>
+            <div class="card-body">
+              <div class="card-title">Океан и летающие рыбы</div>
+              <div class="card-date">2 часа назад</div>
+            </div>
+            <div class="chevron">›</div>
           </div>
-          <div class="chevron">›</div>
+        </div>
+        <div class="dream-card gradient-deep">
+          <div class="card-row">
+            <div class="emoji">🔮</div>
+            <div class="card-body">
+              <div class="card-title">Глубокий анализ за неделю</div>
+              <div class="card-date">Вчера</div>
+            </div>
+            <div class="chevron">›</div>
+          </div>
+        </div>
+        <div class="dream-card gradient-emotion">
+          <div class="card-row">
+            <div class="emoji">❤️‍🔥</div>
+            <div class="card-body">
+              <div class="card-title">Разговор с мамой на кухне</div>
+              <div class="card-date">3 дня назад</div>
+            </div>
+            <div class="chevron">›</div>
+          </div>
+        </div>
+        <div class="dream-card gradient-memory">
+          <div class="card-row">
+            <div class="emoji">📸</div>
+            <div class="card-body">
+              <div class="card-title">Школьный коридор и старые друзья</div>
+              <div class="card-date">5 дней назад</div>
+            </div>
+            <div class="chevron">›</div>
+          </div>
+        </div>
+        <div class="dream-card gradient-anticipation">
+          <div class="card-row">
+            <div class="emoji">✈️</div>
+            <div class="card-body">
+              <div class="card-title">Полёт над незнакомым городом</div>
+              <div class="card-date">Неделю назад</div>
+            </div>
+            <div class="chevron">›</div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="ds-label">Глубокий анализ (gradient-purple)</div>
-    <div class="ds-preview">
-      <div class="dream-card gradient-purple mb-8">
-        <div class="card-row">
-          <div class="emoji">🔮</div>
-          <div class="card-body">
-            <div class="card-title">Глубокий анализ за неделю</div>
-            <div class="card-date">Вчера</div>
-          </div>
-          <div class="chevron">›</div>
-        </div>
-      </div>
+    <div class="ds-label">Градиенты по типу сна</div>
+    <div style="font-size:13px;color:var(--ds-text-muted);margin-bottom:8px">
+      <div><b>default</b> (unknown) — #4A58FF → #5664FF</div>
+      <div><b>deep</b> (глубокий анализ) — #9C41FF → #C03AFF</div>
+      <div><b>emotion</b> — #FF4A4A → #FF8A8A</div>
+      <div><b>memory</b> — #FFB84A → #FFDA82</div>
+      <div><b>anticipation</b> — #4A9FFF → #8AC7FF</div>
     </div>
-    <div class="ds-label">Active (expanded)</div>
-    <div class="ds-preview">
-      <div class="dream-card gradient-blue" style="padding-bottom:24px">
-        <div class="card-row"><div class="emoji">🌊</div><div class="card-body"><div class="card-title">Океан и летающие рыбы</div><div class="card-date">2 часа назад</div></div></div>
-        <div style="margin-top:16px">
-          <h2 style="font-size:32px;font-weight:700;line-height:1.1">Океан и летающие рыбы</h2>
-          <div style="font-size:16px;opacity:0.8;margin-top:8px">10 апреля 2026, 12:34</div>
-          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
-            <span class="badge">вода</span><span class="badge">полёт</span><span class="badge">животные</span>
-          </div>
+    <div class="ds-label">Раскрытая карточка (overlay mode)</div>
+    <div class="ds-tma-preview">
+      <div class="dream-card gradient-default" style="padding-bottom:24px">
+        <div style="display:flex;justify-content:center;margin-bottom:16px"><div style="width:40px;height:4px;background:rgba(255,255,255,0.2);border-radius:9999px"></div></div>
+        <h2 style="font-size:32px;font-weight:700;line-height:1.1">Океан и летающие рыбы</h2>
+        <div style="font-size:16px;opacity:0.8;margin-top:8px">10 апреля 2026, 12:34</div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+          <span class="badge">вода</span><span class="badge">полёт</span><span class="badge">животные</span>
         </div>
       </div>
     </div>
@@ -472,7 +519,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Свёрнутый</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="user-info-card">
         <div class="user-row">
           <div class="avatar">👤</div>
@@ -485,7 +532,7 @@ body {
       </div>
     </div>
     <div class="ds-label">Раскрытый</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="user-info-card" style="padding-bottom:24px">
         <div class="user-row">
           <div class="avatar">👤</div>
@@ -512,7 +559,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Default</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="symbol-card">
         <div class="symbol-header">
           <h3 class="symbol-name">Вода</h3>
@@ -538,14 +585,14 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Наука</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="fact-card" style="background:linear-gradient(135deg,#5342E1,#7A164F)">
         <span class="fact-badge fact-badge--science">Наука</span>
         <div class="fact-text">Средний человек видит 3-5 снов за ночь, но забывает до 95% из них в первые 10 минут после пробуждения.</div>
       </div>
     </div>
     <div class="ds-label">Совет</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="fact-card" style="background:linear-gradient(135deg,#BF62ED,#701E99)">
         <span class="fact-badge fact-badge--tip">Совет</span>
         <div class="fact-text">Записывайте сны сразу после пробуждения — память о сне быстро исчезает. Держите блокнот у кровати.</div>
@@ -562,18 +609,18 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">С label + процентом</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="progress-container">
         <div class="progress-header"><div class="progress-label">Анализ сна</div><div class="progress-percentage">65%</div></div>
         <div class="progress-track"><div class="progress-fill animated" style="width:65%"><div class="progress-shimmer"></div></div></div>
       </div>
     </div>
     <div class="ds-label">Минимальный</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="progress-container"><div class="progress-track"><div class="progress-fill" style="width:30%"></div></div></div>
     </div>
     <div class="ds-label">Завершённый (100%)</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="progress-container">
         <div class="progress-header"><div class="progress-label">Готово!</div><div class="progress-percentage">100%</div></div>
         <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
@@ -590,7 +637,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Default</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="demographics-banner">
         <div class="banner-row">
           <div class="banner-icon">🧭</div>
@@ -616,7 +663,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Размеры: sm / md / lg</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div style="display:flex;align-items:center;gap:24px;color:var(--tg-theme-text-color)">
         <div><div class="loading-spinner spinner-sm"><div class="spinner-ring"></div></div><div class="ds-typo-meta" style="margin-top:4px">sm</div></div>
         <div><div class="loading-spinner spinner-md"><div class="spinner-ring"></div></div><div class="ds-typo-meta" style="margin-top:4px">md</div></div>
@@ -634,7 +681,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">User Card Skeleton</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div style="display:flex;align-items:center;gap:16px;padding:16px">
         <div class="skeleton-circle" style="width:40px;height:40px"></div>
         <div style="flex:1;display:flex;flex-direction:column;gap:8px">
@@ -644,7 +691,7 @@ body {
       </div>
     </div>
     <div class="ds-label">Dream Card Skeleton</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div style="padding:16px;display:flex;flex-direction:column;gap:8px">
         <div style="display:flex;justify-content:space-between"><div class="skeleton-line" style="width:25%;height:16px"></div><div class="skeleton-line" style="width:64px;height:12px"></div></div>
         <div class="skeleton-line" style="width:100%"></div>
@@ -664,7 +711,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Success / Error / Info</div>
-    <div class="ds-preview" style="display:flex;flex-direction:column;gap:8px">
+    <div class="ds-tma-preview" style="display:flex;flex-direction:column;gap:8px">
       <div class="notification notification-success">✓ Подписка подтверждена! Теперь отправьте сон.</div>
       <div class="notification notification-error">✕ Подписка не найдена. Откройте канал.</div>
       <div class="notification notification-info">ℹ Анализ в процессе, подождите...</div>
@@ -680,7 +727,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Модалка подписки</div>
-    <div class="ds-preview" style="padding:0">
+    <div class="ds-tma-preview" style="padding:0">
       <div class="subscription-card">
         <h2>Выбери тариф</h2>
         <div class="plan-switcher">
@@ -709,14 +756,14 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Active slide</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="onboarding-card">
         <div style="font-size:80px;margin-bottom:8px">🧙‍♂️</div>
         <div class="headline">Сюжеты снов часто отражают эмоции,<br/>а не реальные события.</div>
       </div>
     </div>
     <div class="ds-label">Inactive slide (scale 0.92, opacity 0.7)</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="onboarding-card" style="transform:scale(0.92);opacity:0.7">
         <div style="font-size:80px;margin-bottom:8px">💭</div>
         <div class="headline">DreamsTalk поможет сохранить<br/>и исследовать сны.</div>
@@ -733,7 +780,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Без выбора</div>
-    <div class="ds-preview" style="padding:0">
+    <div class="ds-tma-preview" style="padding:0">
       <div class="survey-card">
         <div class="survey-title">Как часто вы помните свои сны?</div>
         <div class="survey-buttons">
@@ -745,7 +792,7 @@ body {
       </div>
     </div>
     <div class="ds-label">С выбором (active + faded)</div>
-    <div class="ds-preview" style="padding:0">
+    <div class="ds-tma-preview" style="padding:0">
       <div class="survey-card">
         <div class="survey-title">Записываете ли вы сны?</div>
         <div class="survey-buttons">
@@ -766,7 +813,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Пустой (disabled кнопка)</div>
-    <div class="ds-preview" style="padding:0">
+    <div class="ds-tma-preview" style="padding:0">
       <div class="survey-card">
         <div class="survey-title">Что вы ожидаете от инструмента анализа снов?</div>
         <textarea class="survey-textarea" rows="4" placeholder="Например: «Хочу лучше понимать символику снов»"></textarea>
@@ -774,7 +821,7 @@ body {
       </div>
     </div>
     <div class="ds-label">Заполненный (active кнопка)</div>
-    <div class="ds-preview" style="padding:0">
+    <div class="ds-tma-preview" style="padding:0">
       <div class="survey-card">
         <div class="survey-title">Какие функции вы хотите видеть?</div>
         <textarea class="survey-textarea" rows="4">Авто-расшифровка символов, дневник сна, рекомендации по улучшению сна</textarea>
@@ -792,7 +839,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Default</div>
-    <div class="ds-preview" style="padding:0">
+    <div class="ds-tma-preview" style="padding:0">
       <div class="survey-card">
         <div class="survey-title">Оцените важность анализа снов</div>
         <div class="slider-row">
@@ -813,14 +860,14 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">3 из 8 вопросов</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="survey-progress">
         <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
         <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
       </div>
     </div>
     <div class="ds-label">Завершён (8 из 8)</div>
-    <div class="ds-preview">
+    <div class="ds-tma-preview">
       <div class="survey-progress">
         <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
         <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
