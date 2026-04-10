@@ -251,10 +251,25 @@ body {
 @keyframes skeleton-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
 /* ========= COMPONENT: NotificationSystem ========= */
-.notification { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; font-size: 14px; font-weight: 500; }
-.notification-success { background: rgba(40,167,69,0.15); color: #28a745; border: 1px solid rgba(40,167,69,0.2); }
-.notification-error { background: rgba(239,91,91,0.15); color: #ef5b5b; border: 1px solid rgba(239,91,91,0.2); }
-.notification-info { background: rgba(51,144,236,0.15); color: #3390ec; border: 1px solid rgba(51,144,236,0.2); }
+.notification-demo-container { position: relative; min-height: 200px; background: rgba(0,0,0,0.55); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 16px; gap: 12px; }
+.notification-base { position: relative; overflow: hidden; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); color: var(--tg-theme-text-color); width: 100%; }
+.notification-base .notification-content { display: flex; align-items: flex-start; gap: 12px; }
+.notification-base .notification-icon { flex-shrink: 0; margin-top: 2px; }
+.notification-base .notification-message { flex: 1; font-size: 14px; line-height: 1.4; font-weight: 500; }
+.notification-base .notification-progress { position: absolute; bottom: 0; left: 0; height: 3px; opacity: 0.6; animation: notif-progress 4s linear forwards; }
+@keyframes notif-progress { from { width: 100%; } to { width: 0%; } }
+.notification-success { background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(34,197,94,0.05)); border-color: rgba(34,197,94,0.3); }
+.notification-success .notification-icon { color: rgb(34,197,94); }
+.notification-success .notification-progress { background: rgb(34,197,94); }
+.notification-error { background: linear-gradient(135deg, rgba(239,68,68,0.15), rgba(239,68,68,0.05)); border-color: rgba(239,68,68,0.3); }
+.notification-error .notification-icon { color: rgb(239,68,68); }
+.notification-error .notification-progress { background: rgb(239,68,68); }
+.notification-warning { background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.05)); border-color: rgba(245,158,11,0.3); }
+.notification-warning .notification-icon { color: rgb(245,158,11); }
+.notification-warning .notification-progress { background: rgb(245,158,11); }
+.notification-info { background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(59,130,246,0.05)); border-color: rgba(59,130,246,0.3); }
+.notification-info .notification-icon { color: rgb(59,130,246); }
+.notification-info .notification-progress { background: rgb(59,130,246); }
 
 /* ========= COMPONENT: SubscriptionModal ========= */
 .subscription-card {
@@ -385,16 +400,17 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-tma-preview" style="color: var(--tg-theme-text-color)">
-      <div class="ds-typo-row"><div style="font-size:32px;font-weight:700">Heading 32px Bold</div><div class="ds-typo-meta">font-size: 32px, font-weight: 700</div></div>
-      <div class="ds-typo-row"><div style="font-size:28px;font-weight:700">Heading 28px Bold</div><div class="ds-typo-meta">font-size: 28px, font-weight: 700 — SubscriptionModal title</div></div>
-      <div class="ds-typo-row"><div style="font-size:22px;font-weight:800">Title 22px ExtraBold</div><div class="ds-typo-meta">font-size: 22px, font-weight: 800 — Survey question titles</div></div>
-      <div class="ds-typo-row"><div style="font-size:20px;font-weight:600">Title 20px SemiBold</div><div class="ds-typo-meta">font-size: 20px, font-weight: 600 — SymbolCard name</div></div>
-      <div class="ds-typo-row"><div style="font-size:18px;font-weight:700">Button 18px Bold</div><div class="ds-typo-meta">font-size: 18px, font-weight: 700 — Survey buttons</div></div>
-      <div class="ds-typo-row"><div style="font-size:16px;font-weight:600">Body 16px SemiBold</div><div class="ds-typo-meta">font-size: 16px, font-weight: 600 — DreamCard title</div></div>
-      <div class="ds-typo-row"><div style="font-size:16px;font-weight:500">Body 16px Medium</div><div class="ds-typo-meta">font-size: 16px, font-weight: 500 — Onboarding headline</div></div>
-      <div class="ds-typo-row"><div style="font-size:14px;font-weight:500">Small 14px Medium</div><div class="ds-typo-meta">font-size: 14px, font-weight: 500 — Badge, descriptions</div></div>
-      <div class="ds-typo-row"><div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px">Label 12px UPPERCASE</div><div class="ds-typo-meta">font-size: 12px, font-weight: 600, uppercase — Section labels</div></div>
-      <div class="ds-typo-row"><div style="font-size:11px;color:var(--tg-theme-hint-color)">Hint 11px</div><div class="ds-typo-meta">font-size: 11px — Hint/meta text</div></div>
+      <div class="ds-typo-row"><div style="font-size:32px;font-weight:700">Океан и летающие рыбы</div><div class="ds-typo-meta">32px / Bold — DreamCard раскрытый заголовок</div></div>
+      <div class="ds-typo-row"><div style="font-size:28px;font-weight:700">Выбери тариф</div><div class="ds-typo-meta">28px / Bold — SubscriptionModal заголовок</div></div>
+      <div class="ds-typo-row"><div style="font-size:24px;font-weight:600">Удобный доступ</div><div class="ds-typo-meta">24px / SemiBold — Onboarding второй поток, заголовки слайдов</div></div>
+      <div class="ds-typo-row"><div style="font-size:22px;font-weight:800">Как часто вы помните свои сны?</div><div class="ds-typo-meta">22px / ExtraBold — Survey вопросы</div></div>
+      <div class="ds-typo-row"><div style="font-size:20px;font-weight:600">Вода</div><div class="ds-typo-meta">20px / SemiBold — SymbolCard название символа</div></div>
+      <div class="ds-typo-row"><div style="font-size:18px;font-weight:700">Почти каждый день</div><div class="ds-typo-meta">18px / Bold — Survey кнопки ответов</div></div>
+      <div class="ds-typo-row"><div style="font-size:16px;font-weight:600">Глубокий анализ за неделю</div><div class="ds-typo-meta">16px / SemiBold — DreamCard заголовок в списке</div></div>
+      <div class="ds-typo-row"><div style="font-size:16px;font-weight:500">Сюжеты снов часто отражают эмоции, а не реальные события.</div><div class="ds-typo-meta">16px / Medium — Onboarding headline, FactsCarousel текст</div></div>
+      <div class="ds-typo-row"><div style="font-size:14px;font-weight:500">Токенов: 3</div><div class="ds-typo-meta">14px / Medium — Badge, описания, дата на карточке</div></div>
+      <div class="ds-typo-row"><div style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px">В ВАШИХ СНАХ</div><div class="ds-typo-meta">12px / SemiBold / UPPERCASE — SymbolCard context label, секционные метки</div></div>
+      <div class="ds-typo-row"><div style="font-size:11px;color:var(--tg-theme-hint-color)">2 часа назад · 3 дня назад</div><div class="ds-typo-meta">11px — Hint текст, мета-информация</div></div>
     </div>
   </div>
 </section>
@@ -704,14 +720,42 @@ body {
 <section class="ds-section" id="notifications">
   <div class="ds-section-header">
     <h2>Notifications</h2>
-    <div class="ds-comp-name">NotificationSystem.vue</div>
+    <div class="ds-comp-name">NotificationSystem.vue — fixed bottom-center, backdrop-blur, gradient bg, SVG icons, progress bar</div>
   </div>
   <div class="ds-section-body">
-    <div class="ds-label">Success / Error / Info</div>
-    <div class="ds-tma-preview" style="display:flex;flex-direction:column;gap:8px">
-      <div class="notification notification-success">✓ Подписка подтверждена! Теперь отправьте сон.</div>
-      <div class="notification notification-error">✕ Подписка не найдена. Откройте канал.</div>
-      <div class="notification notification-info">ℹ Анализ в процессе, подождите...</div>
+    <div class="ds-label">Как выглядят в приложении (floating overlay)</div>
+    <div class="notification-demo-container">
+      <div class="notification-base notification-success">
+        <div class="notification-content">
+          <div class="notification-icon"><svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg></div>
+          <div class="notification-message">Подписка подтверждена! Теперь отправьте свой сон в чате с ботом.</div>
+        </div>
+        <div class="notification-progress"></div>
+      </div>
+      <div class="notification-base notification-error">
+        <div class="notification-content">
+          <div class="notification-icon"><svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg></div>
+          <div class="notification-message">Подписка не найдена. Открываем канал...</div>
+        </div>
+        <div class="notification-progress"></div>
+      </div>
+      <div class="notification-base notification-warning">
+        <div class="notification-content">
+          <div class="notification-icon"><svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg></div>
+          <div class="notification-message">Подписка не найдена. Открываем канал...</div>
+        </div>
+        <div class="notification-progress"></div>
+      </div>
+      <div class="notification-base notification-info">
+        <div class="notification-content">
+          <div class="notification-icon"><svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg></div>
+          <div class="notification-message">Анализ в процессе, подождите...</div>
+        </div>
+        <div class="notification-progress"></div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--ds-text-muted);margin-top:8px">
+      Позиция: fixed, bottom 10vh, center. Ширина: 40vw (90vw на мобильных). Backdrop-filter: blur(8px). Иконки: SVG. Прогресс-бар внизу с анимацией.
     </div>
   </div>
 </section>
@@ -748,23 +792,34 @@ body {
 <!-- ==================== ONBOARDING ==================== -->
 <section class="ds-section" id="onboarding">
   <div class="ds-section-header">
-    <h2>Onboarding — Карточка</h2>
-    <div class="ds-comp-name">Onboarding.vue</div>
+    <h2>Onboarding — Vertical Swiper</h2>
+    <div class="ds-comp-name">Onboarding.vue — Swiper vertical, 4 slides per flow, Telegram MainButton CTA</div>
   </div>
   <div class="ds-section-body">
-    <div class="ds-label">Active slide</div>
-    <div class="ds-tma-preview">
-      <div class="onboarding-card">
+    <div class="ds-label">Full-screen overlay (как в приложении)</div>
+    <div style="position:relative;background:rgba(0,0,0,0.55);border-radius:16px;overflow:hidden;min-height:480px;display:flex;align-items:center;justify-content:center;padding:16px">
+      <div class="onboarding-card" style="min-height:400px;max-height:400px">
         <div style="font-size:80px;margin-bottom:8px">🧙‍♂️</div>
         <div class="headline">Сюжеты снов часто отражают эмоции,<br/>а не реальные события.</div>
       </div>
     </div>
-    <div class="ds-label">Inactive slide (scale 0.92, opacity 0.7)</div>
-    <div class="ds-tma-preview">
-      <div class="onboarding-card" style="transform:scale(0.92);opacity:0.7">
-        <div style="font-size:80px;margin-bottom:8px">💭</div>
-        <div class="headline">DreamsTalk поможет сохранить<br/>и исследовать сны.</div>
+    <div class="ds-label">Peeking-эффект: active (scale 1.0) vs inactive (scale 0.92, opacity 0.7)</div>
+    <div style="position:relative;background:rgba(0,0,0,0.55);border-radius:16px;overflow:hidden;padding:24px 16px;display:flex;flex-direction:column;gap:18px;align-items:center">
+      <div class="onboarding-card" style="min-height:120px;max-height:120px;transform:scale(0.92);opacity:0.7;padding:16px">
+        <div style="font-size:40px">🧙‍♂️</div>
+        <div class="headline" style="font-size:13px">Сюжеты снов часто отражают эмоции...</div>
       </div>
+      <div class="onboarding-card" style="min-height:120px;max-height:120px;padding:16px">
+        <div style="font-size:40px">💭</div>
+        <div class="headline" style="font-size:13px">DreamsTalk поможет сохранить и исследовать сны.</div>
+      </div>
+      <div class="onboarding-card" style="min-height:120px;max-height:120px;transform:scale(0.92);opacity:0.7;padding:16px">
+        <div style="font-size:40px">💬</div>
+        <div class="headline" style="font-size:13px">Чтобы описать сон — просто отправь его в чат.</div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--ds-text-muted);margin-top:8px">
+      Навигация: вертикальный Swiper (direction="vertical"), slides-per-view="auto", centeredSlides, autoplay 8s. CTA через Telegram MainButton на последнем слайде. Overlay: fixed inset 0, bg rgba(0,0,0,0.55). Карточка: 72vh, gradient #6A4DFF → #9A3CFF.
     </div>
   </div>
 </section>
