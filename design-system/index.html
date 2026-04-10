@@ -94,28 +94,28 @@ body {
 }
 .ds-nav a:hover { color: var(--ds-text); background: var(--ds-border); }
 
-.ds-container { max-width: 800px; margin: 0 auto; padding: 24px; }
+/* TMA-like container: matches PersonalAccount.vue px-4 layout */
+.ds-container {
+  max-width: 560px; margin: 0 auto; padding: 16px;
+  background: var(--tg-theme-bg-color);
+  min-height: 100vh;
+}
 
-.ds-section {
-  margin-bottom: 48px;
-  background: var(--ds-section-bg);
-  border-radius: 16px;
-  border: 1px solid var(--ds-border);
-  overflow: hidden;
+/* Section: no border/bg, just spacing + small label */
+.ds-section { margin-bottom: 32px; }
+.ds-section-header { margin-bottom: 12px; }
+.ds-section-header h2 {
+  font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--ds-text-muted); opacity: 0.6;
 }
-.ds-section-header {
-  padding: 16px 24px;
-  border-bottom: 1px solid var(--ds-border);
-}
-.ds-section-header h2 { font-size: 16px; font-weight: 700; }
 .ds-section-header .ds-comp-name {
   font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
-  font-size: 12px; color: var(--ds-text-muted); margin-top: 2px;
+  font-size: 11px; color: var(--ds-text-muted); opacity: 0.4;
 }
-.ds-section-body { padding: 24px; }
+.ds-section-body { }
 .ds-section-body .ds-label {
-  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
-  color: var(--ds-text-muted); margin-bottom: 8px; margin-top: 16px;
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+  color: var(--ds-text-muted); margin-bottom: 6px; margin-top: 12px; opacity: 0.5;
 }
 .ds-section-body .ds-label:first-child { margin-top: 0; }
 
@@ -165,13 +165,8 @@ body {
 .gradient-memory { background: linear-gradient(135deg, #FFB84A 0%, #FFC966 80%, #FFDA82 100%); }
 .gradient-anticipation { background: linear-gradient(135deg, #4A9FFF 0%, #6BB3FF 80%, #8AC7FF 100%); }
 
-/* TMA-style preview: matches PersonalAccount px-4 gap-6 layout */
-.ds-tma-preview {
-  background: var(--tg-theme-bg-color);
-  border-radius: 12px;
-  padding: 16px;
-  border: 1px solid var(--ds-border);
-}
+/* TMA-style preview: no wrapper, components render directly */
+.ds-tma-preview { }
 .ds-tma-preview .card-stack { display: flex; flex-direction: column; gap: 16px; }
 
 /* ========= COMPONENT: UserInfoCard ========= */
@@ -293,9 +288,10 @@ body {
 .slider-labels { display: flex; justify-content: space-between; margin-top: 8px; font-size: 14px; opacity: 0.95; font-weight: 600; }
 
 /* ========= COMPONENT: Survey ProgressBar ========= */
-.survey-progress { display: flex; gap: 4px; }
-.survey-progress .dot { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.2); transition: background 0.3s; }
-.survey-progress .dot.filled { background: rgba(255,255,255,0.8); }
+.survey-progress-wrap { backdrop-filter: blur(10px) saturate(120%); padding: 6px 8px; border-radius: 12px; }
+.survey-progress-label { font-size: 14px; color: rgba(255,255,255,0.9); margin-bottom: 6px; }
+.survey-progress-bar { height: 8px; background: rgba(255,255,255,0.25); border-radius: 999px; overflow: hidden; }
+.survey-progress-fill { height: 100%; background: linear-gradient(90deg, #6A4DFF, #9A3CFF); border-radius: 999px; transition: width 0.3s; }
 
 /* ========= COMPONENT: Onboarding Card ========= */
 .onboarding-card {
@@ -303,7 +299,8 @@ body {
   border-radius: 16px; padding: 20px 16px 0; color: white;
   box-shadow: 0 10px 30px rgba(0,0,0,0.35);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  min-height: 300px; text-align: center;
+  min-height: 72vh; max-height: 72vh; text-align: center;
+  width: 100%;
 }
 .onboarding-card .headline { font-size: 16px; line-height: 1.4; font-weight: 500; margin: 12px 0; }
 
@@ -727,7 +724,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Модалка подписки</div>
-    <div class="ds-tma-preview" style="padding:0">
+    <div class="ds-tma-preview">
       <div class="subscription-card">
         <h2>Выбери тариф</h2>
         <div class="plan-switcher">
@@ -780,7 +777,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Без выбора</div>
-    <div class="ds-tma-preview" style="padding:0">
+    <div class="ds-tma-preview">
       <div class="survey-card">
         <div class="survey-title">Как часто вы помните свои сны?</div>
         <div class="survey-buttons">
@@ -792,7 +789,7 @@ body {
       </div>
     </div>
     <div class="ds-label">С выбором (active + faded)</div>
-    <div class="ds-tma-preview" style="padding:0">
+    <div class="ds-tma-preview">
       <div class="survey-card">
         <div class="survey-title">Записываете ли вы сны?</div>
         <div class="survey-buttons">
@@ -813,7 +810,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Пустой (disabled кнопка)</div>
-    <div class="ds-tma-preview" style="padding:0">
+    <div class="ds-tma-preview">
       <div class="survey-card">
         <div class="survey-title">Что вы ожидаете от инструмента анализа снов?</div>
         <textarea class="survey-textarea" rows="4" placeholder="Например: «Хочу лучше понимать символику снов»"></textarea>
@@ -821,7 +818,7 @@ body {
       </div>
     </div>
     <div class="ds-label">Заполненный (active кнопка)</div>
-    <div class="ds-tma-preview" style="padding:0">
+    <div class="ds-tma-preview">
       <div class="survey-card">
         <div class="survey-title">Какие функции вы хотите видеть?</div>
         <textarea class="survey-textarea" rows="4">Авто-расшифровка символов, дневник сна, рекомендации по улучшению сна</textarea>
@@ -839,7 +836,7 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Default</div>
-    <div class="ds-tma-preview" style="padding:0">
+    <div class="ds-tma-preview">
       <div class="survey-card">
         <div class="survey-title">Оцените важность анализа снов</div>
         <div class="slider-row">
@@ -861,16 +858,16 @@ body {
   <div class="ds-section-body">
     <div class="ds-label">3 из 8 вопросов</div>
     <div class="ds-tma-preview">
-      <div class="survey-progress">
-        <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <div class="survey-progress-wrap">
+        <div class="survey-progress-label">Вопрос 3 из 8</div>
+        <div class="survey-progress-bar"><div class="survey-progress-fill" style="width:37.5%"></div></div>
       </div>
     </div>
     <div class="ds-label">Завершён (8 из 8)</div>
     <div class="ds-tma-preview">
-      <div class="survey-progress">
-        <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
-        <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+      <div class="survey-progress-wrap">
+        <div class="survey-progress-label">Вопрос 8 из 8</div>
+        <div class="survey-progress-bar"><div class="survey-progress-fill" style="width:100%"></div></div>
       </div>
     </div>
   </div>
