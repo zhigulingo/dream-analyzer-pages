@@ -197,9 +197,9 @@ body {
   display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;
 }
 .fact-card .fact-badge { display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-.fact-badge--science { background: rgba(255,255,255,0.15); }
-.fact-badge--tip { background: rgba(76,175,80,0.3); }
-.fact-badge--myth { background: rgba(255,152,0,0.3); }
+.fact-badge--fact   { background: rgba(59, 130, 246, 0.25); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+.fact-badge--symbol { background: rgba(167, 139, 250, 0.25); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.3); }
+.fact-badge--myth   { background: rgba(251, 191, 36, 0.2); color: #fcd34d; border: 1px solid rgba(251,191,36,0.3); }
 .fact-card .fact-text { font-size: 16px; font-weight: 500; line-height: 1.5; margin-top: 16px; flex: 1; }
 
 /* ========= COMPONENT: ProgressBar ========= */
@@ -602,19 +602,24 @@ body {
     <div class="ds-comp-name">FactsCarouselV2.vue</div>
   </div>
   <div class="ds-section-body">
-    <div class="ds-label">Наука</div>
-    <div class="ds-tma-preview">
-      <div class="fact-card" style="background:linear-gradient(135deg,#5342E1,#7A164F)">
-        <span class="fact-badge fact-badge--science">Наука</span>
-        <div class="fact-text">Средний человек видит 3-5 снов за ночь, но забывает до 95% из них в первые 10 минут после пробуждения.</div>
+    <div class="ds-label">Карусель (peeking — активная + выглядывающая)</div>
+    <div style="position:relative;overflow:hidden;border-radius:16px;height:240px;background:var(--tg-theme-bg-color)">
+      <div style="display:flex;gap:16px;padding:0 16px;height:100%;align-items:center">
+        <div class="fact-card" style="background:linear-gradient(135deg,#5342E1,#7A164F);min-width:calc(100% - 32px);flex-shrink:0">
+          <span class="fact-badge fact-badge--fact">Факт</span>
+          <div class="fact-text">Большинство снов забываются в течение первых 5-10 минут после пробуждения.</div>
+        </div>
+        <div class="fact-card" style="background:linear-gradient(135deg,#BF62ED,#701E99);min-width:calc(100% - 32px);flex-shrink:0;opacity:0.5">
+          <span class="fact-badge fact-badge--symbol">Символ</span>
+          <div class="fact-text">Полет во сне — ощущение свободы или побег от проблем.</div>
+        </div>
       </div>
     </div>
-    <div class="ds-label">Совет</div>
-    <div class="ds-tma-preview">
-      <div class="fact-card" style="background:linear-gradient(135deg,#BF62ED,#701E99)">
-        <span class="fact-badge fact-badge--tip">Совет</span>
-        <div class="fact-text">Записывайте сны сразу после пробуждения — память о сне быстро исчезает. Держите блокнот у кровати.</div>
-      </div>
+    <div class="ds-label">Типы бейджей</div>
+    <div class="ds-tma-preview" style="display:flex;gap:8px;flex-wrap:wrap">
+      <span class="fact-badge fact-badge--fact">Факт</span>
+      <span class="fact-badge fact-badge--symbol">Символ</span>
+      <span class="fact-badge fact-badge--myth">Миф</span>
     </div>
   </div>
 </section>
@@ -801,30 +806,29 @@ body {
     <div class="ds-comp-name">Onboarding.vue — Swiper vertical, 4 slides per flow, Telegram MainButton CTA</div>
   </div>
   <div class="ds-section-body">
-    <div class="ds-label">Full-screen overlay (как в приложении)</div>
-    <div style="position:relative;background:rgba(0,0,0,0.55);border-radius:16px;overflow:hidden;min-height:480px;display:flex;align-items:center;justify-content:center;padding:16px">
-      <div class="onboarding-card" style="min-height:400px;max-height:400px">
-        <div style="font-size:80px;margin-bottom:8px">🧙‍♂️</div>
-        <div class="headline">Сюжеты снов часто отражают эмоции,<br/>а не реальные события.</div>
-      </div>
-    </div>
-    <div class="ds-label">Peeking-эффект: active (scale 1.0) vs inactive (scale 0.92, opacity 0.7)</div>
-    <div style="position:relative;background:rgba(0,0,0,0.55);border-radius:16px;overflow:hidden;padding:24px 16px;display:flex;flex-direction:column;gap:18px;align-items:center">
-      <div class="onboarding-card" style="min-height:120px;max-height:120px;transform:scale(0.92);opacity:0.7;padding:16px">
-        <div style="font-size:40px">🧙‍♂️</div>
-        <div class="headline" style="font-size:13px">Сюжеты снов часто отражают эмоции...</div>
-      </div>
-      <div class="onboarding-card" style="min-height:120px;max-height:120px;padding:16px">
-        <div style="font-size:40px">💭</div>
-        <div class="headline" style="font-size:13px">DreamsTalk поможет сохранить и исследовать сны.</div>
-      </div>
-      <div class="onboarding-card" style="min-height:120px;max-height:120px;transform:scale(0.92);opacity:0.7;padding:16px">
-        <div style="font-size:40px">💬</div>
-        <div class="headline" style="font-size:13px">Чтобы описать сон — просто отправь его в чат.</div>
+    <div class="ds-label">Peeking-эффект (как в приложении: активная + выглядывающие края)</div>
+    <div style="position:relative;background:rgba(0,0,0,0.55);border-radius:16px;overflow:hidden;height:520px">
+      <!-- Вертикальный контейнер с центрированной активной картой -->
+      <div style="display:flex;flex-direction:column;gap:18px;align-items:center;position:absolute;top:50%;left:16px;right:16px;transform:translateY(-50%)">
+        <!-- Верхняя неактивная — видна только нижняя часть (выглядывает) -->
+        <div class="onboarding-card" style="min-height:380px;max-height:380px;transform:scale(0.92);opacity:0.5;margin-top:-300px">
+          <div style="font-size:60px;margin-bottom:8px">🧙‍♂️</div>
+          <div class="headline">Сюжеты снов часто отражают эмоции,<br/>а не реальные события.</div>
+        </div>
+        <!-- АКТИВНАЯ карточка — по центру, полный размер -->
+        <div class="onboarding-card" style="min-height:380px;max-height:380px">
+          <div style="font-size:60px;margin-bottom:8px">💭</div>
+          <div class="headline">DreamsTalk поможет сохранить<br/>и исследовать сны, чтобы лучше<br/>понимать себя и свои эмоции.</div>
+        </div>
+        <!-- Нижняя неактивная — видна только верхняя часть (выглядывает) -->
+        <div class="onboarding-card" style="min-height:380px;max-height:380px;transform:scale(0.92);opacity:0.5;margin-bottom:-300px">
+          <div style="font-size:60px;margin-bottom:8px">💬</div>
+          <div class="headline">Чтобы описать сон — просто<br/>отправь его в чат.</div>
+        </div>
       </div>
     </div>
     <div style="font-size:12px;color:var(--ds-text-muted);margin-top:8px">
-      Навигация: вертикальный Swiper (direction="vertical"), slides-per-view="auto", centeredSlides, autoplay 8s. CTA через Telegram MainButton на последнем слайде. Overlay: fixed inset 0, bg rgba(0,0,0,0.55). Карточка: 72vh, gradient #6A4DFF → #9A3CFF.
+      Swiper vertical, centeredSlides, slides-per-view="auto". Неактивные: scale 0.92, opacity 0.5 — видны только края. Overlay: fixed inset 0, bg rgba(0,0,0,0.55). Карточка: 72vh, gradient #6A4DFF → #9A3CFF.
     </div>
   </div>
 </section>
