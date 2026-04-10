@@ -158,12 +158,12 @@ body {
 .dream-card .card-date { font-size: 14px; opacity: 0.8; margin-top: 2px; }
 .dream-card .chevron { opacity: 0.4; font-size: 20px; flex-shrink: 0; }
 
-/* Real gradient types from DreamCard.vue gradientClass computed */
-.gradient-default { background: linear-gradient(135deg, #4A58FF 0%, #5664FF 100%); }
-.gradient-deep { background: linear-gradient(135deg, #9C41FF 0%, #B04AFF 80%, #C03AFF 100%); }
-.gradient-emotion { background: linear-gradient(135deg, #FF4A4A 0%, #FF6B6B 80%, #FF8A8A 100%); }
-.gradient-memory { background: linear-gradient(135deg, #FFB84A 0%, #FFC966 80%, #FFDA82 100%); }
-.gradient-anticipation { background: linear-gradient(135deg, #4A9FFF 0%, #6BB3FF 80%, #8AC7FF 100%); }
+/* Real gradient types from DreamCard.vue gradientClass computed — bg-gradient-to-br with via */
+.gradient-default { background: linear-gradient(to bottom right, #4A58FF, #5664FF); }
+.gradient-deep { background: linear-gradient(to bottom right, #9C41FF, rgba(176,74,255,0.8), rgba(192,58,255,0.4)); }
+.gradient-emotion { background: linear-gradient(to bottom right, #FF4A4A, rgba(255,107,107,0.8), rgba(255,138,138,0.4)); }
+.gradient-memory { background: linear-gradient(to bottom right, #FFB84A, rgba(255,201,102,0.8), rgba(255,218,130,0.4)); }
+.gradient-anticipation { background: linear-gradient(to bottom right, #4A9FFF, rgba(107,179,255,0.8), rgba(138,199,255,0.4)); }
 
 /* TMA-style preview: no wrapper, components render directly */
 .ds-tma-preview { }
@@ -297,10 +297,6 @@ body {
 .survey-btn:disabled { opacity: 0.7; cursor: not-allowed; }
 
 .survey-textarea { width: 100%; border: 1px solid #e5e7eb; border-radius: 16px; padding: 14px; resize: none; font-size: 16px; font-family: var(--font-main); box-sizing: border-box; }
-.survey-slider { width: 100%; accent-color: #6A4DFF; }
-.slider-row { display: flex; align-items: center; gap: 12px; }
-.slider-value { width: 44px; text-align: center; font-weight: 800; font-size: 18px; }
-.slider-labels { display: flex; justify-content: space-between; margin-top: 8px; font-size: 14px; opacity: 0.95; font-weight: 600; }
 
 /* ========= COMPONENT: Survey ProgressBar ========= */
 .survey-progress-wrap { backdrop-filter: blur(10px) saturate(120%); padding: 6px 8px; border-radius: 12px; }
@@ -359,7 +355,6 @@ body {
   <a href="#onboarding">Onboarding</a>
   <a href="#survey-buttons">Survey: Buttons</a>
   <a href="#survey-text">Survey: Text</a>
-  <a href="#survey-slider">Survey: Slider</a>
   <a href="#survey-progress">Survey: Progress</a>
 </nav>
 
@@ -504,11 +499,11 @@ body {
     </div>
     <div class="ds-label">Градиенты по типу сна</div>
     <div style="font-size:13px;color:var(--ds-text-muted);margin-bottom:8px">
-      <div><b>default</b> (unknown) — #4A58FF → #5664FF</div>
-      <div><b>deep</b> (глубокий анализ) — #9C41FF → #C03AFF</div>
-      <div><b>emotion</b> — #FF4A4A → #FF8A8A</div>
-      <div><b>memory</b> — #FFB84A → #FFDA82</div>
-      <div><b>anticipation</b> — #4A9FFF → #8AC7FF</div>
+      <div><b>default</b> (unknown) — from-[#4A58FF] to-[#5664FF]</div>
+      <div><b>deep</b> (глубокий анализ) — from-[#9C41FF] via-[#B04AFF]/80 to-[#C03AFF]/40</div>
+      <div><b>emotion</b> — from-[#FF4A4A] via-[#FF6B6B]/80 to-[#FF8A8A]/40</div>
+      <div><b>memory</b> — from-[#FFB84A] via-[#FFC966]/80 to-[#FFDA82]/40</div>
+      <div><b>anticipation</b> — from-[#4A9FFF] via-[#6BB3FF]/80 to-[#8AC7FF]/40</div>
     </div>
     <div class="ds-label">Раскрытая карточка (overlay mode)</div>
     <div class="ds-tma-preview">
@@ -544,20 +539,30 @@ body {
         </div>
       </div>
     </div>
-    <div class="ds-label">Раскрытый</div>
+    <div class="ds-label">Раскрытый (как в UserInfoCard.vue)</div>
     <div class="ds-tma-preview">
-      <div class="user-info-card" style="padding-bottom:24px">
+      <div class="user-info-card" style="padding-bottom:16px">
+        <!-- Top row: avatar + name (no badges when expanded) -->
         <div class="user-row">
           <div class="avatar">👤</div>
           <div class="name">Глеб</div>
         </div>
+        <!-- Badges (expanded, shown separately) -->
         <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap">
-          <span class="badge">Токенов: 3</span>
+          <span class="badge" style="display:inline-flex;align-items:center;gap:6px">Токенов: 3</span>
           <span class="badge">Beta</span>
         </div>
-        <div style="margin-top:16px; font-size:14px; opacity:0.9">
-          <div>📊 Снов: 12 · Анализов: 8</div>
-          <div style="margin-top:4px">📅 С нами с 1 марта 2026</div>
+        <!-- Stats rows (flex justify-between like in real component) -->
+        <div style="margin-top:12px; font-size:14px">
+          <div style="display:flex;justify-content:space-between;padding:2px 0"><span style="opacity:0.8">Пользователь уже:</span><span>40 дней</span></div>
+          <div style="display:flex;justify-content:space-between;padding:2px 0"><span style="opacity:0.8">Проанализировано снов:</span><span>12</span></div>
+          <div style="display:flex;justify-content:space-between;padding:2px 0"><span style="opacity:0.8">Глубоких анализов:</span><span>3</span></div>
+          <div style="display:flex;justify-content:space-between;padding:2px 0"><span style="opacity:0.8">Приглашено друзей:</span><span>0</span></div>
+        </div>
+        <!-- Action buttons -->
+        <div style="margin-top:16px;padding-bottom:8px">
+          <button style="width:100%;background:rgba(255,255,255,0.2);color:white;border:none;border-radius:12px;padding:12px;font-weight:600;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">Сменить тариф</button>
+          <button style="width:100%;background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);border:none;border-radius:12px;padding:12px;font-weight:600;font-size:16px;cursor:not-allowed;margin-top:8px">Получить токены</button>
         </div>
       </div>
     </div>
@@ -878,27 +883,6 @@ body {
         <div class="survey-title">Какие функции вы хотите видеть?</div>
         <textarea class="survey-textarea" rows="4">Авто-расшифровка символов, дневник сна, рекомендации по улучшению сна</textarea>
         <div style="display:flex;justify-content:center;margin-top:12px"><button class="survey-btn" style="min-width:160px">Далее</button></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== SURVEY: SLIDER ==================== -->
-<section class="ds-section" id="survey-slider">
-  <div class="ds-section-header">
-    <h2>Survey: SliderQuestion</h2>
-    <div class="ds-comp-name">controls/SliderQuestion.vue</div>
-  </div>
-  <div class="ds-section-body">
-    <div class="ds-label">Default</div>
-    <div class="ds-tma-preview">
-      <div class="survey-card">
-        <div class="survey-title">Оцените важность анализа снов</div>
-        <div class="slider-row">
-          <input class="survey-slider" type="range" min="1" max="10" value="7">
-          <div class="slider-value">7</div>
-        </div>
-        <div class="slider-labels"><span>1</span><span>5</span><span>10</span></div>
       </div>
     </div>
   </div>
