@@ -158,12 +158,12 @@ body {
 .dream-card .card-date { font-size: 14px; opacity: 0.8; margin-top: 2px; }
 .dream-card .chevron { opacity: 0.4; font-size: 20px; flex-shrink: 0; }
 
-/* Real gradient types from DreamCard.vue gradientClass computed — bg-gradient-to-br with via */
-.gradient-default { background: linear-gradient(to bottom right, #4A58FF, #5664FF); }
-.gradient-deep { background: linear-gradient(to bottom right, #9C41FF, rgba(176,74,255,0.8), rgba(192,58,255,0.4)); }
-.gradient-emotion { background: linear-gradient(to bottom right, #FF4A4A, rgba(255,107,107,0.8), rgba(255,138,138,0.4)); }
-.gradient-memory { background: linear-gradient(to bottom right, #FFB84A, rgba(255,201,102,0.8), rgba(255,218,130,0.4)); }
-.gradient-anticipation { background: linear-gradient(to bottom right, #4A9FFF, rgba(107,179,255,0.8), rgba(138,199,255,0.4)); }
+/* Real gradient types from DreamCard.vue gradientClass computed */
+.gradient-default { background: linear-gradient(135deg, #4A58FF, #5664FF); }
+.gradient-deep { background: linear-gradient(135deg, #9C41FF, rgba(176,74,255,0.8), rgba(192,58,255,0.4)); }
+.gradient-emotion { background: linear-gradient(135deg, #FF4A4A, rgba(255,107,107,0.8), rgba(255,138,138,0.4)); }
+.gradient-memory { background: linear-gradient(135deg, #FFB84A, rgba(255,201,102,0.8), rgba(255,218,130,0.4)); }
+.gradient-anticipation { background: linear-gradient(135deg, #4A9FFF, rgba(107,179,255,0.8), rgba(138,199,255,0.4)); }
 
 /* TMA-style preview: no wrapper, components render directly */
 .ds-tma-preview { }
@@ -181,7 +181,7 @@ body {
 .user-info-card .badges { display: flex; flex-direction: column; gap: 4px; margin-left: auto; }
 
 /* ========= COMPONENT: SymbolCard ========= */
-.symbol-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; padding: 20px; color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.symbol-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 .symbol-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.2); }
 .symbol-name { font-size: 20px; font-weight: 600; }
 .frequency-badge { background: rgba(255,255,255,0.25); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 6px 14px; font-size: 16px; font-weight: 600; }
@@ -196,7 +196,7 @@ body {
   border-radius: 12px; overflow: hidden; color: white; padding: 32px;
   display: flex; flex-direction: column; justify-content: space-between; min-height: 200px;
 }
-.fact-card .fact-badge { display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.fact-card .fact-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
 .fact-badge--fact   { background: rgba(59, 130, 246, 0.25); color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
 .fact-badge--symbol { background: rgba(167, 139, 250, 0.25); color: #c4b5fd; border: 1px solid rgba(167,139,250,0.3); }
 .fact-badge--myth   { background: rgba(251, 191, 36, 0.2); color: #fcd34d; border: 1px solid rgba(251,191,36,0.3); }
@@ -216,7 +216,7 @@ body {
 
 /* ========= COMPONENT: DemographicsBanner ========= */
 .demographics-banner {
-  border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
   background: rgba(255,255,255,0.05); color: white; padding: 16px;
 }
 [data-theme="light"] .demographics-banner { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); color: #333; }
@@ -251,7 +251,7 @@ body {
 @keyframes skeleton-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
 /* ========= COMPONENT: NotificationSystem ========= */
-.notification-demo-container { position: relative; min-height: 200px; background: rgba(0,0,0,0.55); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 16px; gap: 12px; }
+.notification-demo-container { position: relative; min-height: 200px; background: rgba(0,0,0,0.55); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding: 16px; gap: 12px; }
 .notification-base { position: relative; overflow: hidden; backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); color: var(--tg-theme-text-color); width: 100%; }
 .notification-base .notification-content { display: flex; align-items: flex-start; gap: 12px; }
 .notification-base .notification-icon { flex-shrink: 0; margin-top: 2px; }
@@ -273,14 +273,17 @@ body {
 
 /* ========= COMPONENT: SubscriptionModal ========= */
 .subscription-card {
-  background: linear-gradient(135deg, #8000FF, #5500AA);
-  border-radius: 20px; padding: 24px; color: white; text-align: center;
+  background: linear-gradient(to bottom, #8000FF, #5500AA);
+  border-radius: 12px; padding: 24px; color: white; text-align: center;
 }
 .subscription-card h2 { font-size: 28px; font-weight: 700; margin-bottom: 20px; }
 .plan-switcher { display: flex; background: rgba(255,255,255,0.1); border-radius: 12px; padding: 3px; margin-bottom: 20px; }
 .plan-switcher button { flex: 1; padding: 10px; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; background: transparent; color: rgba(255,255,255,0.6); transition: all 0.2s; }
-.plan-switcher button.active { background: rgba(255,255,255,0.2); color: white; }
-.plan-card { background: rgba(255,255,255,0.08); border-radius: 16px; padding: 20px; text-align: left; border: 1px solid rgba(255,255,255,0.1); }
+.plan-switcher button.active { background: rgba(255,255,255,0.25); color: white; }
+.duration-selector { display: flex; gap: 8px; margin-bottom: 20px; }
+.duration-selector button { flex: 1; padding: 10px; border: 1px solid transparent; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); transition: all 0.2s; }
+.duration-selector button.active { background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.6); color: white; }
+.plan-card { background: rgba(255,255,255,0.1); border-radius: 24px; padding: 24px; text-align: left; }
 .plan-card .plan-name { font-size: 18px; font-weight: 700; }
 .plan-card .plan-price { font-size: 24px; font-weight: 800; margin: 8px 0; }
 .plan-card .plan-features { list-style: none; padding: 0; }
@@ -288,7 +291,7 @@ body {
 .plan-card .plan-features li::before { content: "✓ "; opacity: 0.5; }
 
 /* ========= COMPONENT: Survey Controls ========= */
-.survey-card { background: linear-gradient(135deg, #6A4DFF 0%, #9A3CFF 100%); border-radius: 20px; padding: 24px; color: white; }
+.survey-card { background: linear-gradient(135deg, #6A4DFF 0%, #9A3CFF 100%); border-radius: 12px; padding: 24px; color: white; }
 .survey-title { font-size: 22px; font-weight: 800; margin-bottom: 16px; text-align: center; }
 .survey-buttons { display: flex; flex-direction: column; gap: 12px; }
 .survey-btn { width: 100%; padding: 14px 18px; border-radius: 20px; border: none; background: #fff; color: #111827; font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 10px 24px rgba(0,0,0,0.14); transition: opacity 0.2s; }
@@ -307,7 +310,7 @@ body {
 /* ========= COMPONENT: Onboarding Card ========= */
 .onboarding-card {
   background: linear-gradient(135deg, #6A4DFF 0%, #9A3CFF 100%);
-  border-radius: 16px; padding: 20px 16px 0; color: white;
+  border-radius: 12px; padding: 20px 16px 0; color: white;
   box-shadow: 0 10px 30px rgba(0,0,0,0.35);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   min-height: 72vh; max-height: 72vh; text-align: center;
@@ -590,15 +593,19 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Карусель (peeking — активная + выглядывающая)</div>
-    <div style="position:relative;overflow:hidden;border-radius:16px;height:240px;background:var(--tg-theme-bg-color)">
+    <div style="position:relative;overflow:hidden;border-radius:12px;height:240px;background:var(--tg-theme-bg-color)">
       <div style="display:flex;gap:16px;padding:0 16px;height:100%;align-items:center">
-        <div class="fact-card" style="background:linear-gradient(135deg,#5342E1,#7A164F);min-width:calc(100% - 32px);flex-shrink:0">
+        <div class="fact-card" style="background:linear-gradient(135deg,#6A4DFF,#9A3CFF);min-width:86%;flex-shrink:0">
           <span class="fact-badge fact-badge--fact">Факт</span>
-          <div class="fact-text">Большинство снов забываются в течение первых 5-10 минут после пробуждения.</div>
+          <div class="fact-text">Большинство снов забываются в течение первых 5-10 минут после пробуждения</div>
         </div>
-        <div class="fact-card" style="background:linear-gradient(135deg,#BF62ED,#701E99);min-width:calc(100% - 32px);flex-shrink:0;opacity:0.5">
+        <div class="fact-card" style="background:linear-gradient(135deg,#6A4DFF,#9A3CFF);min-width:86%;flex-shrink:0;opacity:0.5">
           <span class="fact-badge fact-badge--symbol">Символ</span>
-          <div class="fact-text">Полет во сне — ощущение свободы или побег от проблем.</div>
+          <div class="fact-text">Полет во сне часто связывают с ощущением свободы или желанием убежать от проблем</div>
+        </div>
+        <div class="fact-card" style="background:linear-gradient(135deg,#6A4DFF,#9A3CFF);min-width:86%;flex-shrink:0;opacity:0.3">
+          <span class="fact-badge fact-badge--myth">Миф</span>
+          <div class="fact-text">Миф: люди снятся только черно-белыми. На самом деле 80% людей видят цветные сны</div>
         </div>
       </div>
     </div>
@@ -644,7 +651,7 @@ body {
     <div class="ds-comp-name">DemographicsBanner.vue</div>
   </div>
   <div class="ds-section-body">
-    <div class="ds-label">Default</div>
+    <div class="ds-label">Default (кнопка)</div>
     <div class="ds-tma-preview">
       <div class="demographics-banner">
         <div class="banner-row">
@@ -655,6 +662,41 @@ body {
             <div class="banner-actions">
               <button class="banner-btn-primary">Указать данные</button>
               <button class="banner-btn-secondary">Скрыть</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-label">Step 1 — Возраст</div>
+    <div class="ds-tma-preview">
+      <div class="demographics-banner">
+        <div class="banner-row">
+          <div class="banner-icon">🧭</div>
+          <div style="flex:1">
+            <div class="banner-title">Повысим точность анализа</div>
+            <div class="banner-desc">Укажите возраст и пол — будущие анализы будут сравниваться с демографическими нормами.</div>
+            <div class="banner-actions">
+              <button class="banner-btn-secondary">0-20</button>
+              <button class="banner-btn-secondary">20-30</button>
+              <button class="banner-btn-primary">30-40</button>
+              <button class="banner-btn-secondary">40-50</button>
+              <button class="banner-btn-secondary">50+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ds-label">Step 2 — Пол</div>
+    <div class="ds-tma-preview">
+      <div class="demographics-banner">
+        <div class="banner-row">
+          <div class="banner-icon">🧭</div>
+          <div style="flex:1">
+            <div class="banner-title">Повысим точность анализа</div>
+            <div class="banner-desc">Укажите возраст и пол — будущие анализы будут сравниваться с демографическими нормами.</div>
+            <div class="banner-actions">
+              <button class="banner-btn-primary">Мужской</button>
+              <button class="banner-btn-secondary">Женский</button>
             </div>
           </div>
         </div>
@@ -766,6 +808,11 @@ body {
           <button class="active">Basic</button>
           <button>Premium</button>
         </div>
+        <div class="duration-selector">
+          <button class="active">1 мес</button>
+          <button>3 мес</button>
+          <button>12 мес</button>
+        </div>
         <div class="plan-card">
           <div class="plan-name">Basic</div>
           <div class="plan-price">⭐ 150 Stars / мес</div>
@@ -787,24 +834,31 @@ body {
   </div>
   <div class="ds-section-body">
     <div class="ds-label">Peeking-эффект (как в приложении: активная + выглядывающие края)</div>
-    <div style="position:relative;background:rgba(0,0,0,0.55);border-radius:16px;overflow:hidden;height:520px">
+    <div style="position:relative;background:rgba(0,0,0,0.55);border-radius:12px;overflow:hidden;height:520px">
       <div style="display:flex;flex-direction:column;gap:18px;align-items:center;position:absolute;top:50%;left:16px;right:16px;transform:translateY(-50%)">
         <div class="onboarding-card" style="min-height:380px;max-height:380px;transform:scale(0.92);opacity:0.5;margin-top:-300px">
-          <div style="font-size:60px;margin-bottom:8px">🧙‍♂️</div>
-          <div class="headline">Сюжеты снов часто отражают эмоции,<br/>а не реальные события.</div>
+          <div style="width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:8px">wizard-thinking</div>
+          <div class="headline">Сюжеты снов часто отражают эмоции, а не реальные события.</div>
         </div>
         <div class="onboarding-card" style="min-height:380px;max-height:380px">
-          <div style="font-size:60px;margin-bottom:8px">💭</div>
-          <div class="headline">DreamsTalk поможет сохранить<br/>и исследовать сны, чтобы лучше<br/>понимать себя и свои эмоции.</div>
+          <div style="width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:8px">thinking</div>
+          <div class="headline">DreamsTalk поможет сохранить и исследовать сны, чтобы лучше понимать себя и свои эмоции.</div>
         </div>
         <div class="onboarding-card" style="min-height:380px;max-height:380px;transform:scale(0.92);opacity:0.5;margin-bottom:-300px">
-          <div style="font-size:60px;margin-bottom:8px">💬</div>
-          <div class="headline">Чтобы описать сон — просто<br/>отправь его в чат.</div>
+          <div style="width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:8px">chat</div>
+          <div class="headline">Чтобы описать сон — просто отправь его в чат.</div>
         </div>
       </div>
     </div>
+    <div class="ds-label">Slide 4 — Telegram</div>
+    <div class="ds-tma-preview">
+      <div class="onboarding-card" style="min-height:380px;max-height:380px">
+        <div style="width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:8px">telegram-star</div>
+        <div class="headline">Получи первый токен для анализа сна за подписку на канал @TheDreamsHub</div>
+      </div>
+    </div>
     <div style="font-size:12px;color:var(--ds-text-muted);margin-top:8px">
-      Swiper vertical, centeredSlides, slides-per-view="auto". Неактивные: scale 0.92, opacity 0.5 — видны только края. Overlay: fixed inset 0, bg rgba(0,0,0,0.55). Карточка: 72vh, gradient #6A4DFF → #9A3CFF.
+      Swiper vertical, centeredSlides, slides-per-view="auto". Неактивные: scale 0.92, opacity 0.5 — видны только края. Overlay: fixed inset 0, bg rgba(0,0,0,0.55). Карточка: 72vh, gradient #6A4DFF → #9A3CFF. Sticker placeholders: 220×220 gray circles.
     </div>
   </div>
 </section>
